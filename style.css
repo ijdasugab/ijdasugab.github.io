@@ -1,0 +1,803 @@
+:root {
+  color-scheme: dark;
+  --sky: #83b6cc;
+  --sky-deep: #457c96;
+  --ink: #ffffff;
+  --soft: rgba(255, 255, 255, 0.74);
+  --line: rgba(255, 255, 255, 0.58);
+  --cyan: #62d6f4;
+  --port: #144d66;
+  --orange: #f2a23a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: #4f879f;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 48px 24px;
+  text-align: center;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.1) 0 18%, transparent 18% 100%),
+    linear-gradient(115deg, transparent 0 48%, rgba(112, 219, 244, 0.18) 48% 49%, transparent 49% 100%),
+    linear-gradient(115deg, transparent 0 72%, rgba(255, 255, 255, 0.08) 72% 73%, transparent 73% 100%),
+    linear-gradient(180deg, rgba(31, 120, 150, 0.96) 0%, rgba(31, 91, 117, 0.94) 42%, rgba(16, 45, 61, 0.94) 100%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 35vh;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(17, 34, 42, 0.12) 18%, rgba(12, 24, 31, 0.34) 100%),
+    linear-gradient(115deg, transparent 0 62%, rgba(255, 255, 255, 0.1) 62% 63%, transparent 63% 100%);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 1px) 0 0 / 110px 110px,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 1px) 0 0 / 110px 110px,
+    rgba(19, 32, 39, 0.12);
+  pointer-events: none;
+}
+
+.profile {
+  position: relative;
+  z-index: 2;
+  width: min(920px, 100%);
+  margin-top: -4vh;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 8.4vw, 6.8rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 8px 28px rgba(20, 38, 48, 0.18);
+}
+
+.profile p {
+  margin: 28px 0 0;
+  color: var(--soft);
+  font-size: clamp(1.08rem, 2.4vw, 1.58rem);
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+}
+
+.social-links a {
+  width: 82px;
+  height: 82px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 1.42rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: lowercase;
+  box-shadow: 0 16px 38px rgba(32, 59, 73, 0.13);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.social-links svg {
+  width: 34px;
+  height: 34px;
+  display: block;
+  fill: currentColor;
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-4px);
+}
+
+.port-scene {
+  position: absolute;
+  right: clamp(24px, 8vw, 134px);
+  bottom: clamp(58px, 10vh, 116px);
+  z-index: 1;
+  width: 480px;
+  height: 300px;
+  opacity: 0.5;
+  animation: sceneDrift 8s ease-in-out infinite;
+}
+
+.logistics-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.tracking-panel {
+  position: absolute;
+  left: clamp(24px, 7vw, 110px);
+  top: clamp(70px, 16vh, 150px);
+  width: 185px;
+  height: 108px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 8px;
+  background: rgba(18, 45, 58, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 20px 42px rgba(20, 43, 54, 0.16);
+}
+
+.tracking-panel::before,
+.tracking-panel::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+}
+
+.tracking-panel::before {
+  right: 16px;
+  top: 17px;
+  width: 54px;
+  height: 54px;
+}
+
+.tracking-panel::after {
+  right: 32px;
+  top: 33px;
+  width: 21px;
+  height: 21px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.panel-dot {
+  position: absolute;
+  left: 18px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.12);
+}
+
+.panel-line {
+  position: absolute;
+  left: 18px;
+  width: 72px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.line-long {
+  top: 48px;
+  width: 112px;
+}
+
+.panel-line:not(.line-long):not(.line-mid) {
+  top: 67px;
+}
+
+.line-mid {
+  top: 86px;
+  width: 92px;
+}
+
+.route {
+  position: absolute;
+  border: 2px dashed rgba(255, 255, 255, 0.56);
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 999px;
+  animation: routePulse 4.8s ease-in-out infinite;
+}
+
+.route-one {
+  right: 9vw;
+  top: 17vh;
+  width: 280px;
+  height: 145px;
+  transform: rotate(-12deg);
+}
+
+.route-two {
+  left: 8vw;
+  bottom: 18vh;
+  width: 335px;
+  height: 176px;
+  transform: rotate(18deg);
+  animation-delay: 1.2s;
+}
+
+.route-three {
+  right: 26vw;
+  bottom: 12vh;
+  width: 260px;
+  height: 130px;
+  transform: rotate(8deg);
+  animation-delay: 0.6s;
+}
+
+.node {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.78);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.05);
+  animation: nodeGlow 3.6s ease-in-out infinite;
+}
+
+.node-one {
+  right: 12vw;
+  top: 24vh;
+}
+
+.node-two {
+  right: 24vw;
+  top: 34vh;
+  animation-delay: 0.8s;
+}
+
+.node-three {
+  left: 17vw;
+  bottom: 27vh;
+  animation-delay: 1.5s;
+}
+
+.node-four {
+  right: 35vw;
+  bottom: 22vh;
+  animation-delay: 2.2s;
+}
+
+.cargo {
+  position: absolute;
+  width: 72px;
+  height: 44px;
+  border: 2px solid rgba(255, 255, 255, 0.58);
+  border-radius: 4px;
+  background:
+    linear-gradient(90deg, transparent 32%, rgba(255, 255, 255, 0.28) 32% 35%, transparent 35% 66%, rgba(255, 255, 255, 0.28) 66% 69%, transparent 69%),
+    rgba(255, 255, 255, 0.08);
+}
+
+.cargo-one {
+  left: 13vw;
+  top: 34vh;
+}
+
+.cargo-two {
+  right: 13vw;
+  bottom: 22vh;
+}
+
+.cargo-three {
+  right: 30vw;
+  top: 20vh;
+  transform: scale(0.76);
+}
+
+.truck {
+  position: absolute;
+  left: clamp(26px, 12vw, 170px);
+  bottom: clamp(88px, 16vh, 145px);
+  width: 132px;
+  height: 54px;
+  border: 2px solid rgba(255, 255, 255, 0.62);
+  border-radius: 6px 3px 3px 6px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 22%, transparent 22%),
+    rgba(255, 255, 255, 0.08);
+  animation: truckMove 6s ease-in-out infinite;
+}
+
+.truck-cab {
+  position: absolute;
+  right: -42px;
+  bottom: -2px;
+  width: 44px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.62);
+  border-left: 0;
+  border-radius: 0 9px 4px 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.wheel {
+  position: absolute;
+  bottom: -12px;
+  width: 19px;
+  height: 19px;
+  border: 4px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  background: rgba(22, 45, 55, 0.65);
+}
+
+.wheel-one {
+  left: 22px;
+}
+
+.wheel-two {
+  right: -26px;
+}
+
+.ops-card {
+  position: absolute;
+  right: 0;
+  top: 4px;
+  width: 164px;
+  height: 98px;
+  border: 1px solid rgba(151, 229, 248, 0.52);
+  border-radius: 8px;
+  background: rgba(11, 48, 65, 0.36);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+.ops-card::before {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 18px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: conic-gradient(from 40deg, rgba(98, 214, 244, 0.7) 0 68%, rgba(255, 255, 255, 0.14) 68% 100%);
+}
+
+.ops-dot {
+  position: absolute;
+  left: 18px;
+  top: 20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 7px rgba(98, 214, 244, 0.12);
+}
+
+.ops-line {
+  position: absolute;
+  left: 18px;
+  width: 64px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.ops-line-long {
+  top: 47px;
+  width: 96px;
+}
+
+.ops-line:not(.ops-line-long):not(.ops-line-mid) {
+  top: 65px;
+}
+
+.ops-line-mid {
+  top: 83px;
+  width: 80px;
+}
+
+.crane {
+  position: absolute;
+  left: 0;
+  bottom: 22px;
+  width: 230px;
+  height: 190px;
+}
+
+.crane-tower {
+  position: absolute;
+  left: 52px;
+  bottom: 0;
+  width: 18px;
+  height: 150px;
+  border: 2px solid rgba(255, 255, 255, 0.58);
+  background: repeating-linear-gradient(45deg, transparent 0 9px, rgba(255, 255, 255, 0.18) 9px 11px);
+}
+
+.crane-arm {
+  position: absolute;
+  left: 50px;
+  top: 18px;
+  width: 172px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.62);
+  transform: skewX(-22deg);
+  transform-origin: left center;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.crane-cable {
+  position: absolute;
+  left: 185px;
+  top: 31px;
+  width: 2px;
+  height: 86px;
+  background: rgba(255, 255, 255, 0.56);
+  animation: cableDrop 4.8s ease-in-out infinite;
+}
+
+.crane-load {
+  position: absolute;
+  left: 158px;
+  top: 116px;
+  width: 56px;
+  height: 31px;
+  border: 2px solid rgba(242, 162, 58, 0.74);
+  border-radius: 3px;
+  background: rgba(242, 162, 58, 0.16);
+  animation: loadMove 4.8s ease-in-out infinite;
+}
+
+.vessel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 360px;
+  height: 126px;
+  animation: vesselFloat 5.8s ease-in-out infinite;
+}
+
+.vessel::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 60px;
+  clip-path: polygon(0 0, 82% 0, 100% 34%, 92% 72%, 13% 100%, 4% 62%);
+  border-radius: 0 0 18px 36px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.12)),
+    rgba(20, 74, 95, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.62);
+}
+
+.vessel-deck,
+.vessel-box {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.56);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.vessel-deck {
+  right: 56px;
+  bottom: 72px;
+  width: 70px;
+  height: 38px;
+}
+
+.vessel-box {
+  bottom: 45px;
+  width: 44px;
+  height: 32px;
+}
+
+.box-one {
+  left: 38px;
+  border-color: rgba(98, 214, 244, 0.62);
+}
+
+.box-two {
+  left: 84px;
+  border-color: rgba(242, 162, 58, 0.66);
+}
+
+.box-three {
+  left: 130px;
+}
+
+.box-four {
+  left: 61px;
+  bottom: 78px;
+  border-color: rgba(255, 255, 255, 0.62);
+}
+
+.box-five {
+  left: 107px;
+  bottom: 78px;
+  border-color: rgba(98, 214, 244, 0.58);
+}
+
+.vessel-bridge {
+  position: absolute;
+  right: 82px;
+  bottom: 112px;
+  width: 62px;
+  height: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.56);
+  border-radius: 4px 4px 0 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.vessel-window {
+  position: absolute;
+  bottom: 122px;
+  width: 9px;
+  height: 7px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.window-one {
+  right: 124px;
+}
+
+.window-two {
+  right: 107px;
+}
+
+.wave {
+  position: absolute;
+  right: 0;
+  height: 18px;
+  border-top: 2px solid rgba(255, 255, 255, 0.42);
+  border-radius: 50%;
+  animation: waveSlide 4.8s ease-in-out infinite;
+}
+
+.wave-one {
+  bottom: 18px;
+  width: 380px;
+}
+
+.wave-two {
+  right: 42px;
+  bottom: 0;
+  width: 285px;
+  animation-delay: 0.9s;
+}
+
+.wave-three {
+  right: 120px;
+  bottom: 36px;
+  width: 180px;
+  animation-delay: 1.8s;
+}
+
+.site-footer {
+  position: absolute;
+  right: 24px;
+  bottom: 30px;
+  left: 24px;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+@keyframes cableDrop {
+  0% {
+    height: 72px;
+  }
+
+  50% {
+    height: 92px;
+  }
+}
+
+@keyframes loadMove {
+  0%,
+  100% {
+    transform: translateY(-8px);
+  }
+
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+@keyframes sceneDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@keyframes codeFloat {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(14px);
+  }
+}
+
+@keyframes routePulse {
+  0%,
+  100% {
+    opacity: 0.38;
+  }
+
+  50% {
+    opacity: 0.84;
+  }
+}
+
+@keyframes nodeGlow {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.24);
+  }
+}
+
+@keyframes truckMove {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(22px);
+  }
+}
+
+@keyframes vesselFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(-0.8deg);
+  }
+}
+
+@keyframes waveSlide {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.34;
+  }
+
+  50% {
+    transform: translateX(-18px);
+    opacity: 0.76;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding: 42px 18px 86px;
+  }
+
+  .profile {
+    margin-top: -8vh;
+  }
+
+  .profile p {
+    margin-top: 22px;
+  }
+
+  .social-links {
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .social-links a {
+    width: 64px;
+    height: 64px;
+    font-size: 1.02rem;
+  }
+
+  .port-scene {
+    right: auto;
+    left: 50%;
+    bottom: 82px;
+    width: 360px;
+    height: 240px;
+    translate: -50% 0;
+    opacity: 0.22;
+  }
+
+  .crane {
+    transform: scale(0.78);
+    transform-origin: left bottom;
+  }
+
+  .ops-card {
+    display: none;
+  }
+
+  .vessel {
+    right: -18px;
+    transform: scale(0.82);
+    transform-origin: right bottom;
+  }
+
+  .logistics-scene {
+    opacity: 0.38;
+  }
+
+  .tracking-panel,
+  .route-one,
+  .route-three,
+  .node-one,
+  .node-four,
+  .cargo-one,
+  .cargo-three {
+    display: none;
+  }
+
+  .route-two {
+    left: -18vw;
+    bottom: 18vh;
+  }
+
+  .node-two {
+    right: 10vw;
+    top: 18vh;
+  }
+
+  .node-three {
+    left: 12vw;
+    bottom: 24vh;
+  }
+
+  .cargo-two {
+    right: 7vw;
+    bottom: 17vh;
+    transform: scale(0.8);
+  }
+
+  .truck {
+    left: 7vw;
+    bottom: 18vh;
+    transform: scale(0.78);
+    transform-origin: left bottom;
+  }
+
+  .site-footer {
+    bottom: 24px;
+    font-size: 0.92rem;
+  }
+}

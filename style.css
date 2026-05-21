@@ -71,12 +71,25 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(3.2rem, 8.4vw, 6.8rem);
+  font-size: clamp(2.3rem, 5.6vw, 5.6rem);
   line-height: 0.95;
   font-weight: 800;
   letter-spacing: 0;
-  text-wrap: balance;
+  white-space: nowrap;
   text-shadow: 0 8px 28px rgba(20, 38, 48, 0.18);
+}
+
+.typing-name {
+  display: inline-block;
+  width: 0;
+  max-width: max-content;
+  overflow: hidden;
+  border-right: 0.07em solid rgba(255, 255, 255, 0.9);
+  vertical-align: bottom;
+  white-space: nowrap;
+  animation:
+    typeName 2.7s steps(18, end) 0.35s forwards,
+    caretBlink 780ms steps(1, end) infinite;
 }
 
 .profile p {
@@ -705,6 +718,27 @@ h1 {
   }
 }
 
+@keyframes typeName {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 19ch;
+  }
+}
+
+@keyframes caretBlink {
+  0%,
+  100% {
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    border-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
 @media (max-width: 760px) {
   .hero {
     padding: 42px 18px 86px;
@@ -712,6 +746,10 @@ h1 {
 
   .profile {
     margin-top: -8vh;
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 8vw, 2.65rem);
   }
 
   .profile p {
